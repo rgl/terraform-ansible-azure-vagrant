@@ -1,0 +1,6 @@
+- hosts: all
+  name: Example
+  gather_facts: no
+  tasks:
+    - name: Ping
+      ping:
