@@ -1,3 +1,4 @@
+# see https://github.com/hashicorp/terraform
 terraform {
   required_version = ">= 0.12"
   required_providers {
@@ -7,6 +8,7 @@ terraform {
   }
 }
 
+# see https://github.com/terraform-providers/terraform-provider-azurerm
 provider "azurerm" {
   features {}
 }
@@ -30,6 +32,10 @@ variable "admin_username" {
 
 variable "admin_password" {
   default = "HeyH0Password"
+}
+
+output "app_ip_address" {
+  value = azurerm_public_ip.app.ip_address
 }
 
 resource "ansible_host" "app" {

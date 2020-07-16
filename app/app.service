@@ -1,0 +1,16 @@
+[Unit]
+Description=Example Azure Web Application
+After=network.target
+
+[Service]
+Type=simple
+User=app
+Group=app
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node main.js 80
+WorkingDirectory=/opt/app
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

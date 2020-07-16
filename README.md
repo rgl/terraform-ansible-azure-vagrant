@@ -32,6 +32,9 @@ rsync \
 
 # provision the example infrastructure.
 cd $HOME/example/
+export CHECKPOINT_DISABLE=1
+export TF_LOG=TRACE
+export TF_LOG_PATH=terraform.log
 terraform init
 terraform plan -out=tfplan
 time terraform apply tfplan
@@ -43,6 +46,14 @@ ansible-lint playbook.yml
 ansible-playbook playbook.yml --syntax-check
 ansible-playbook playbook.yml --list-hosts
 ansible-playbook playbook.yml #-vvv
+ansible -m ping all
+
+# use the app.
+wget -qSO- "http://$(terraform output app_ip_address)"
+
+# use the app vm.
+ssh-keygen -f ~/.ssh/known_hosts -R "$(terraform output app_ip_address)"
+ssh "rgl@$(terraform output app_ip_address)"
 ```
 
 ## Reference
