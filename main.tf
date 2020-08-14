@@ -1,10 +1,10 @@
 # see https://github.com/hashicorp/terraform
 terraform {
-  required_version = ">= 0.12"
+  required_version = ">= 0.12.0"
   required_providers {
-    template = "~> 2.1"
-    random = "~> 2.3"
-    azurerm = "~> 2.18"
+    template = "~> 2.1.2"
+    random = "~> 2.3.0"
+    azurerm = "~> 2.23.0"
   }
 }
 

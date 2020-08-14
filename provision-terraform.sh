@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+set -euxo pipefail
 
 terraform_version='0.12.29'                   # see https://github.com/hashicorp/terraform/releases
 terraform_provider_ansible_version='1.0.3'    # see https://github.com/nbering/terraform-provider-ansible/releases
