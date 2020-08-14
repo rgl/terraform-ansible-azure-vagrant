@@ -63,6 +63,10 @@ EOF
 su vagrant -c bash <<'EOF-VAGRANT'
 set -euxo pipefail
 
+# generate a ssh key to make it easier to login into the launched
+# azure vm. this will be read from main.tf.
+ssh-keygen -f ~/.ssh/id_rsa -t rsa -b 2048 -C "$USER" -N ''
+
 cat >~/.bash_history <<'EOF'
 sudo -i
 EOF

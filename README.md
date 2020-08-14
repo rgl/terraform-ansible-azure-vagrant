@@ -32,7 +32,9 @@ rsync \
     -a \
     --delete \
     --exclude .vagrant/ \
-    --explude .git/ \
+    --exclude .git/ \
+    --exclude .terraform/ \
+    --exclude 'terraform.tfstate*' \
     /vagrant/ \
     $HOME/example/
 
@@ -41,6 +43,7 @@ cd $HOME/example/
 export CHECKPOINT_DISABLE=1
 export TF_LOG=TRACE
 export TF_LOG_PATH=terraform.log
+export TF_VAR_admin_username="$USER"
 terraform init
 terraform plan -out=tfplan
 time terraform apply tfplan
@@ -59,7 +62,11 @@ wget -qSO- "http://$(terraform output app_ip_address)"
 
 # use the app vm.
 ssh-keygen -f ~/.ssh/known_hosts -R "$(terraform output app_ip_address)"
-ssh "rgl@$(terraform output app_ip_address)"
+ssh "$(terraform output app_ip_address)"
+
+# exit the app vm and destroy the whole infrastructure.
+exit
+terraform destroy
 ```
 
 ## Reference

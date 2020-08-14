@@ -175,6 +175,11 @@ resource "azurerm_linux_virtual_machine" "app" {
   admin_password                  = var.admin_password
   disable_password_authentication = false
 
+  admin_ssh_key {
+    username   = var.admin_username
+    public_key = file("~/.ssh/id_rsa.pub")
+  }
+
   os_disk {
     name    = "app_os"
     caching = "ReadWrite" # TODO is this advisable?
