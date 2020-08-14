@@ -22,7 +22,7 @@ variable "location" {
 # NB this name must be unique within the Azure subscription.
 #    all the other names must be unique within this resource group.
 variable "resource_group_name" {
-  default = "rgl-ubuntu-vm-example"
+  default = "rgl-terraform-ansible-example"
 }
 
 # NB this user cannot be "admin" nor "test" nor whatever Azure decided to deny.
