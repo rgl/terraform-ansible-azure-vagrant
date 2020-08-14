@@ -1,7 +1,7 @@
 #!/bin/bash
-set -eux
+set -euxo pipefail
 
-ansible_version='2.9.9'         # see https://pypi.org/project/ansible/
+ansible_version='2.9.12'        # see https://pypi.org/project/ansible/
 ansible_lint_version='4.2.0'    # see https://pypi.org/project/ansible-lint/
 
 # install ansible into /opt/ansible
