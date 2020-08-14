@@ -19,6 +19,12 @@ vagrant ssh
 # login into azure.
 az login
 
+# list the subscriptions and select the current one
+# if the default is not OK.
+az account list --all
+az account show
+az account set --subscription <YOUR-SUBSCRIPTION-ID>
+
 # copy the example infrastructure to the local disk.
 # NB this is needed because terraform/providers do not
 #    work over the /vagrant shared directory.
