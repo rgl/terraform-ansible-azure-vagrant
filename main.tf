@@ -1,10 +1,23 @@
 # see https://github.com/hashicorp/terraform
 terraform {
-  required_version = ">= 0.12.0"
+  required_version = ">= 0.13.0"
   required_providers {
-    template = "~> 2.1.2"
-    random = "~> 2.3.0"
-    azurerm = "~> 2.23.0"
+    template = {
+      source  = "hashicorp/template"
+      version = "~> 2.1.2"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 2.3.0"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 2.23.0"
+    }
+    ansible = {
+      source = "registry.github.com.local/nbering/ansible"
+      version = "~> 1.0.3"
+    }
   }
 }
 
