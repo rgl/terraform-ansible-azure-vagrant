@@ -6,9 +6,9 @@ This is wrapped in a vagrant environment to make it easier to play with this sta
 
 ## Usage
 
-Install Hyper-V in your local machine.
+If you are using Hyper-V, [configure Hyper-V in your local machine](https://github.com/rgl/windows-vagrant#hyper-v-usage) and start the vagrant environment.
 
-[Configure Hyper-V in your local machine](https://github.com/rgl/windows-vagrant#hyper-v-usage) and start the vagrant environment.
+If you are using libvirt, you should already known what to do.
 
 Enter the created vagrant environment and play with the example terraform project:
 
