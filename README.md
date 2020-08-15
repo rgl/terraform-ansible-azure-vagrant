@@ -70,10 +70,11 @@ wget -qSO- "http://$(terraform output app_ip_address)"
 # use the app vm.
 ssh-keygen -f ~/.ssh/known_hosts -R "$(terraform output app_ip_address)"
 ssh "$(terraform output app_ip_address)"
-
-# exit the app vm and destroy the whole infrastructure.
 exit
-terraform destroy
+
+# destroy the partial/whole infrastructure.
+terraform destroy --target azurerm_linux_virtual_machine.app # destroy just the app vm (and whatever resources depend on it).
+terraform destroy # destroy everything.
 ```
 
 ## Reference
