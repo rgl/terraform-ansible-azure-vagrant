@@ -1,0 +1,70 @@
+- hosts: all
+  name: Summary
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Get summary
+      args:
+        executable: /bin/bash
+      shell: |
+        exec 2>&1
+
+        function title {
+          echo
+          echo '#'
+          echo "# $*"
+          echo '#'
+          echo
+        }
+
+        title distribution
+        cat /etc/os-release
+
+        title firmware
+        echo "$([ -d /sys/firmware/efi ] && echo 'UEFI' || echo 'BIOS')"
+
+        title framebufer resolution
+        echo "$(cat /sys/class/graphics/fb0/virtual_size | tr , x)"
+
+        title kernel
+        uname -a
+
+        title kernel command line
+        cat /proc/cmdline
+
+        title system memory
+        free -h
+
+        title ip addresses
+        ip addr show | perl -n -e'/ inet (\d+(\.\d+)+)/ && print "$1\n"'
+
+        title ip routes
+        ip route
+
+        title partitions
+        parted --list
+
+        title block devices
+        lsblk -x KNAME -o KNAME,SIZE,TRAN,SUBSYSTEMS,FSTYPE,UUID,LABEL,MODEL,SERIAL
+
+        title free disk space
+        df -h
+
+        title smbios
+        set -x
+        cat /sys/devices/virtual/dmi/id/sys_vendor
+        cat /sys/devices/virtual/dmi/id/product_name
+        cat /sys/devices/virtual/dmi/id/product_version
+        cat /sys/devices/virtual/dmi/id/product_serial
+        cat /sys/devices/virtual/dmi/id/product_uuid
+        cat /sys/devices/virtual/dmi/id/chassis_vendor
+        cat /sys/devices/virtual/dmi/id/chassis_type
+        cat /sys/devices/virtual/dmi/id/chassis_version
+        cat /sys/devices/virtual/dmi/id/chassis_serial
+        cat /sys/devices/virtual/dmi/id/chassis_asset_tag
+        set +x
+      register: summary
+      changed_when: false
+    - name: Show summary
+      debug:
+        var: summary.stdout
