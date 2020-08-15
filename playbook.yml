@@ -42,80 +42,77 @@
     # ensure node.js 12.x (LTS) is installed.
     # see https://github.com/nodesource/distributions#debmanual
 
-    - name: Ensure apt-get can use https repositories
-      apt:
-        name:
-          - apt-transport-https
-          - gnupg
-        state: present
-
-    - name: Ensure node.js repository apt key
-      apt_key:
-        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-        state: present
-
-    - name: Ensure node.js repository
-      apt_repository:
-        repo: deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
-        mode: 0600
-        state: present
-
     - name: Ensure node.js is installed
-      apt:
-        name: "nodejs=12.*"
-        state: present
+      block:
+        - name: Ensure apt-get can use https repositories
+          apt:
+            name:
+              - apt-transport-https
+              - gnupg
+            state: present
+        - name: Ensure node.js repository apt key
+          apt_key:
+            url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+            state: present
+        - name: Ensure node.js repository
+          apt_repository:
+            repo: deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
+            mode: 0600
+            state: present
+        - name: Ensure node.js is installed
+          apt:
+            name: "nodejs=12.*"
+            state: present
 
     #
     # ensure the application is installed.
 
-    - name: Ensure app group
-      group:
-        name: app
-        system: yes
-        state: present
-
-    - name: Ensure app user
-      user:
-        name: app
-        group: app
-        groups: app
-        home: /opt/app
-        create_home: no
-        password_lock: yes
-        shell: /usr/sbin/nologin
-        system: yes
-        state: present
-
-    - name: Ensure app installation directory
-      file:
-        path: /opt/app
-        owner: root
-        group: app
-        mode: 0750
-        state: directory
-
-    - name: Ensure app binaries
-      copy:
-        src: app/{{ item }}
-        dest: /opt/app
-        owner: root
-        group: root
-        mode: 0444
-      loop:
-        - main.js
-        - package.json
-      notify:
-        - start app service
-
-    - name: Ensure app service unit
-      copy:
-        src: app/app.service
-        dest: /etc/systemd/system
-        owner: root
-        group: root
-        mode: 0444
-      notify:
-        - start app service
+    - name: Ensure the application is installed
+      block:
+        - name: Ensure app group
+          group:
+            name: app
+            system: yes
+            state: present
+        - name: Ensure app user
+          user:
+            name: app
+            group: app
+            groups: app
+            home: /opt/app
+            create_home: no
+            password_lock: yes
+            shell: /usr/sbin/nologin
+            system: yes
+            state: present
+        - name: Ensure app installation directory
+          file:
+            path: /opt/app
+            owner: root
+            group: app
+            mode: 0750
+            state: directory
+        - name: Ensure app binaries
+          copy:
+            src: app/{{ item }}
+            dest: /opt/app
+            owner: root
+            group: root
+            mode: 0444
+          loop:
+            - main.js
+            - package.json
+          notify:
+            - start app service
+        - name: Ensure app service unit
+          copy:
+            src: app/app.service
+            dest: /etc/systemd/system
+            owner: root
+            group: root
+            mode: 0444
+          notify:
+            - start app service
 
   handlers:
     - name: start app service
