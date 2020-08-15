@@ -4,6 +4,13 @@
   become: yes
   tasks:
     #
+    # ensure cloud-init is finished.
+
+    - name: Ensure cloud-init is finished
+      command: cloud-init status --wait
+      changed_when: false
+
+    #
     # ensure the data disk is initialized.
     # NB to re-test this block use following commands to wipe/delete
     #    all the filesystems and partitions/labels:
