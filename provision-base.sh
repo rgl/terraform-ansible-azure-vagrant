@@ -56,7 +56,6 @@ set completion-ignore-case on
 EOF
 
 cat >~/.bash_history <<'EOF'
-source /opt/ansible/bin/activate && cd /vagrant
 EOF
 
 # configure the vagrant user home.

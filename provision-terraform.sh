@@ -34,8 +34,9 @@ rm -rf linux_amd64 terraform-provider-ansible-linux_amd64.zip
 
 # install the ansible terraform dynamic inventory provider.
 wget -q https://github.com/nbering/terraform-inventory/releases/download/v$ansible_terraform_inventory_version/terraform.py
+sed -i -E 's,#!.+,#!/usr/bin/python3,' terraform.py
 install \
   -m 755 \
   terraform.py \
-  /opt/ansible/bin/ansible-terraform-inventory.py
+  /etc/ansible/terraform.py
 rm terraform.py

@@ -49,7 +49,6 @@ terraform plan -out=tfplan
 time terraform apply tfplan
 
 # use the example infrastructure.
-source /opt/ansible/bin/activate
 ansible-inventory --list --yaml
 ansible-lint playbook.yml
 ansible-playbook playbook.yml --syntax-check
