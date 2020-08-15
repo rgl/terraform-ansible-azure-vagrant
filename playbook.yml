@@ -55,7 +55,7 @@
 
     - name: Ensure node.js is installed
       apt:
-        name: "nodejs=12*"
+        name: "nodejs=12.*"
         state: present
 
     #
