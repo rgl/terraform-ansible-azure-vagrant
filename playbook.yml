@@ -4,6 +4,34 @@
   become: yes
   tasks:
     #
+    # ensure the data disk is initialized.
+    # NB to re-test this block use following commands to wipe/delete
+    #    all the filesystems and partitions/labels:
+    #       umount /data; wipefs --all $(ls -1 /dev/sdc* | grep -E '[0-9]+$') /dev/sdc; sed -i -E '/^\/dev\/sdc.+/d' /etc/fstab
+
+    - name: Ensure the data disk is initialized
+      block:
+        - name: Partition the data disk
+          parted:
+            device: /dev/sdc
+            label: gpt
+            number: 1
+            name: data
+            state: present
+        - name: Create the data filesystem
+          filesystem:
+            dev: /dev/sdc1
+            fstype: ext4
+            opts: -L data
+        - name: Mount the data filesystem
+          mount:
+            src: /dev/sdc1
+            path: /data
+            fstype: ext4
+            opts: defaults,nodev
+            state: mounted
+
+    #
     # ensure node.js 12.x (LTS) is installed.
     # see https://github.com/nodesource/distributions#debmanual
 

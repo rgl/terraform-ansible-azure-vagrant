@@ -61,6 +61,8 @@ ansible-playbook playbook.yml --syntax-check
 ansible-playbook playbook.yml --list-hosts
 ansible-playbook playbook.yml #-vvv
 ansible -m ping all
+ansible -m command -a 'lsblk -x KNAME -o KNAME,SIZE,TRAN,SUBSYSTEMS,FSTYPE,UUID,LABEL,MODEL,SERIAL' --become all # show disks.
+ansible -m parted -a 'device=/dev/sdc' --become all # show a disk info.
 
 # use the app.
 wget -qSO- "http://$(terraform output app_ip_address)"

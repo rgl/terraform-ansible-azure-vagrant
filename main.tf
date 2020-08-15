@@ -194,7 +194,7 @@ resource "azurerm_linux_virtual_machine" "app" {
   }
 
   os_disk {
-    name    = "app_os"
+    name    = "app-os"
     caching = "ReadWrite" # TODO is this advisable?
 
     #disk_size_gb         = 30                # this is optional.
@@ -212,4 +212,26 @@ resource "azurerm_linux_virtual_machine" "app" {
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.diagnostics.primary_blob_endpoint
   }
+}
+
+# NB this disk will be initialized by ansible.
+# NB do NOT be tempted to initialize the disk from cloud-init because
+#    there's a race between the cloud-init way of initializing the disk
+#    and azurerm_virtual_machine_data_disk_attachment.
+resource "azurerm_managed_disk" "app_data" {
+  # NB you MUST not use "app_data" name (and maybe other IIS/ASP.NET reserved names).
+  #    see https://github.com/terraform-providers/terraform-provider-azurerm/issues/8129
+  name                 = "app-data"
+  resource_group_name  = azurerm_resource_group.example.name
+  location             = azurerm_resource_group.example.location
+  create_option        = "Empty"
+  disk_size_gb         = 10
+  storage_account_type = "StandardSSD_LRS"
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "app_data" {
+  virtual_machine_id = azurerm_linux_virtual_machine.app.id
+  managed_disk_id    = azurerm_managed_disk.app_data.id
+  lun                = 0
+  caching            = "ReadWrite"       # TODO is this advisable?
 }
