@@ -29,4 +29,5 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, path: 'provision-azure-cli.sh'
   config.vm.provision :shell, path: 'provision-ansible.sh'
   config.vm.provision :shell, path: 'provision-terraform.sh'
+  config.vm.provision :shell, path: 'summary.sh'
 end
