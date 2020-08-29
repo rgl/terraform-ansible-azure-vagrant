@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 ansible_version='2.9.12'        # see https://pypi.org/project/ansible/
-ansible_lint_version='4.2.0'    # see https://pypi.org/project/ansible-lint/
+ansible_lint_version='4.3.3'    # see https://pypi.org/project/ansible-lint/
 
 # install ansible.
 # see https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-with-pip
