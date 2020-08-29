@@ -12,7 +12,7 @@ terraform {
     }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 2.23.0"
+      version = "2.25.0"
     }
     ansible = {
       source = "nbering/ansible"
