@@ -15,8 +15,8 @@ terraform {
       version = "~> 2.23.0"
     }
     ansible = {
-      source = "registry.github.com.local/nbering/ansible"
-      version = "~> 1.0.3"
+      source = "nbering/ansible"
+      version = "1.0.4"
     }
   }
 }
