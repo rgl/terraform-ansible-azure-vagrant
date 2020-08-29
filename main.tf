@@ -1,19 +1,20 @@
 # see https://github.com/hashicorp/terraform
 terraform {
-  required_version = ">= 0.13.0"
+  required_version = "0.13.1"
   required_providers {
-    template = {
-      source  = "hashicorp/template"
-      version = "~> 2.1.2"
-    }
+    # see https://registry.terraform.io/providers/hashicorp/random
     random = {
       source  = "hashicorp/random"
-      version = "~> 2.3.0"
+      version = "2.3.0"
     }
+    # see https://github.com/terraform-providers/terraform-provider-azurerm
+    # see https://registry.terraform.io/providers/hashicorp/azurerm
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "2.25.0"
     }
+    # see https://github.com/nbering/terraform-provider-ansible
+    # see https://registry.terraform.io/providers/nbering/ansible
     ansible = {
       source = "nbering/ansible"
       version = "1.0.4"
@@ -21,7 +22,6 @@ terraform {
   }
 }
 
-# see https://github.com/terraform-providers/terraform-provider-azurerm
 provider "azurerm" {
   features {}
 }
