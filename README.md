@@ -31,21 +31,8 @@ az account list --all
 az account show
 az account set --subscription <YOUR-SUBSCRIPTION-ID>
 
-# copy the example infrastructure to the local disk.
-# NB this is needed because terraform/providers do not
-#    work over the /vagrant shared directory.
-rsync \
-    -a \
-    --delete \
-    --exclude .vagrant/ \
-    --exclude .git/ \
-    --exclude .terraform/ \
-    --exclude 'terraform.tfstate*' \
-    /vagrant/ \
-    $HOME/example/
-
 # provision the example infrastructure.
-cd $HOME/example/
+cd /vagrant
 export CHECKPOINT_DISABLE=1
 export TF_LOG=TRACE
 export TF_LOG_PATH=terraform.log
