@@ -53,11 +53,11 @@ ansible -m command -a 'lsblk -x KNAME -o KNAME,SIZE,TRAN,SUBSYSTEMS,FSTYPE,UUID,
 ansible -m parted -a 'device=/dev/sdc' --become all # show a disk info.
 
 # use the app.
-wget -qSO- "http://$(terraform output app_ip_address)"
+wget -qSO- "http://$(terraform output -raw app_ip_address)"
 
 # use the app vm.
-ssh-keygen -f ~/.ssh/known_hosts -R "$(terraform output app_ip_address)"
-ssh "$(terraform output app_ip_address)"
+ssh-keygen -f ~/.ssh/known_hosts -R "$(terraform output -raw app_ip_address)"
+ssh "$(terraform output -raw app_ip_address)"
 exit
 
 # destroy the partial/whole infrastructure.
