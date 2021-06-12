@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 # NB execute apt-cache madison azure-cli to known the available versions.
-azure_cli_version="2.11.1-*"
+azure_cli_version='2.24.2'
 
 # install dependencies.
 apt-get install -y apt-transport-https gnupg
@@ -14,5 +14,6 @@ deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -
 EOF
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 apt-get update
-apt-get install -y azure-cli="$azure_cli_version"
+azure_cli_package_version="$(apt-cache madison azure-cli | awk "/$azure_cli_version-/{print \$3}")"
+apt-get install -y azure-cli="$azure_cli_package_version"
 az --version
