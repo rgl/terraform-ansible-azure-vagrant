@@ -10,6 +10,11 @@
       command: cloud-init status --wait
       changed_when: false
 
+    - name: Ensure jq is installed
+      apt:
+        name: jq
+        state: present
+
     #
     # ensure the data disk is initialized.
     # NB to re-test this block use following commands to wipe/delete

@@ -58,6 +58,9 @@ wget -qSO- "http://$(terraform output -raw app_ip_address)"
 # use the app vm.
 ssh-keygen -f ~/.ssh/known_hosts -R "$(terraform output -raw app_ip_address)"
 ssh "$(terraform output -raw app_ip_address)"
+# show the whole vm instance metadata.
+# see https://docs.microsoft.com/en-us/azure/virtual-machines/linux/instance-metadata-service
+curl -s -H 'Metadata: true' 'http://169.254.169.254/metadata/instance?api-version=2021-01-01' | jq
 exit
 
 # destroy the partial/whole infrastructure.
@@ -73,3 +76,4 @@ terraform destroy # destroy everything.
 * https://docs.ansible.com/ansible-core/2.11/user_guide/playbooks.html
 * https://docs.ansible.com/ansible-core/2.11/user_guide/playbooks_best_practices.html
 * https://docs.ansible.com/ansible-core/2.11/reference_appendices/YAMLSyntax.html
+* https://docs.microsoft.com/en-us/azure/virtual-machines/linux/instance-metadata-service
