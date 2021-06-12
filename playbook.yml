@@ -44,7 +44,7 @@
             state: mounted
 
     #
-    # ensure node.js 12.x (LTS) is installed.
+    # ensure node.js 14.x (LTS) is installed.
     # see https://github.com/nodesource/distributions#debmanual
 
     - name: Ensure node.js is installed
@@ -61,12 +61,12 @@
             state: present
         - name: Ensure node.js repository
           apt_repository:
-            repo: deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main
+            repo: deb https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main
             mode: 0600
             state: present
         - name: Ensure node.js is installed
           apt:
-            name: "nodejs=12.*"
+            name: "nodejs=14.*"
             state: present
 
     #
