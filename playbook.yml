@@ -19,19 +19,19 @@
     - name: Ensure the data disk is initialized
       block:
         - name: Partition the data disk
-          parted:
+          community.general.parted:
             device: /dev/sdc
-            label: gpt
             number: 1
+            label: gpt
             name: data
             state: present
         - name: Create the data filesystem
-          filesystem:
+          community.general.filesystem:
             dev: /dev/sdc1
             fstype: ext4
             opts: -L data
         - name: Mount the data filesystem
-          mount:
+          ansible.posix.mount:
             src: /dev/sdc1
             path: /data
             fstype: ext4

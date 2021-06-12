@@ -70,3 +70,6 @@ terraform destroy # destroy everything.
 * https://nicholasbering.ca/tools/2018/01/08/introducing-terraform-provider-ansible/
 * https://github.com/nbering/terraform-provider-ansible
 * https://github.com/nbering/terraform-inventory
+* https://docs.ansible.com/ansible-core/2.11/user_guide/playbooks.html
+* https://docs.ansible.com/ansible-core/2.11/user_guide/playbooks_best_practices.html
+* https://docs.ansible.com/ansible-core/2.11/reference_appendices/YAMLSyntax.html
