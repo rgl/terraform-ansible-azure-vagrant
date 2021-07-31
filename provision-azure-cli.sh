@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 # NB execute apt-cache madison azure-cli to known the available versions.
-azure_cli_version='2.24.2'
+azure_cli_version='2.26.1'
 
 # install dependencies.
 apt-get install -y apt-transport-https gnupg
