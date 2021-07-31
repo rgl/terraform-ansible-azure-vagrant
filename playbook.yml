@@ -10,6 +10,12 @@
       command: cloud-init status --wait
       changed_when: false
 
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 10800 # 3h
+      changed_when: false
+
     - name: Ensure jq is installed
       apt:
         name: jq
