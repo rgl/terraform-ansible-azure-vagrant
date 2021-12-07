@@ -45,6 +45,7 @@ variable "admin_username" {
 
 variable "admin_password" {
   default = "HeyH0Password"
+  sensitive = true
 }
 
 output "app_ip_address" {
