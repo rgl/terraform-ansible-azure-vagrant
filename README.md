@@ -73,7 +73,8 @@ terraform destroy # destroy everything.
 * https://nicholasbering.ca/tools/2018/01/08/introducing-terraform-provider-ansible/
 * https://github.com/nbering/terraform-provider-ansible
 * https://github.com/nbering/terraform-inventory
-* https://docs.ansible.com/ansible-core/2.11/user_guide/playbooks.html
-* https://docs.ansible.com/ansible-core/2.11/user_guide/playbooks_best_practices.html
-* https://docs.ansible.com/ansible-core/2.11/reference_appendices/YAMLSyntax.html
+* https://docs.ansible.com/ansible-core/2.12/user_guide/playbooks.html
+* https://docs.ansible.com/ansible-core/2.12/user_guide/playbooks_best_practices.html
+* https://docs.ansible.com/ansible-core/2.12/reference_appendices/YAMLSyntax.html
+* https://github.com/ansible/ansible/blob/v2.12.1/changelogs/CHANGELOG-v2.12.rst
 * https://docs.microsoft.com/en-us/azure/virtual-machines/linux/instance-metadata-service
