@@ -74,4 +74,4 @@ EOF-VAGRANT
 #
 # provision useful tools.
 
-apt-get install -y unzip jq jo
+apt-get install -y unzip jq jo git
