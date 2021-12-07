@@ -1,6 +1,6 @@
 # see https://github.com/hashicorp/terraform
 terraform {
-  required_version = "1.0.3"
+  required_version = "1.0.11"
   required_providers {
     # see https://registry.terraform.io/providers/hashicorp/random
     random = {
