@@ -11,7 +11,7 @@ terraform {
     # see https://registry.terraform.io/providers/hashicorp/azurerm
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "2.70.0"
+      version = "2.88.1"
     }
     # see https://github.com/nbering/terraform-provider-ansible
     # see https://registry.terraform.io/providers/nbering/ansible
