@@ -5,6 +5,7 @@ function createRequestListener(metadata) {
         const serverAddress = `${request.socket.localAddress}:${request.socket.localPort}`;
         const clientAddress = `${request.socket.remoteAddress}:${request.socket.remotePort}`;
         const message = `VM Name: ${metadata.compute.name}
+Node.js Version: ${process.versions.node}
 Server Address: ${serverAddress}
 Client Address: ${clientAddress}
 Request URL: ${request.url}
