@@ -178,6 +178,30 @@ resource "azurerm_network_interface_security_group_association" "app" {
   network_security_group_id = azurerm_network_security_group.app.id
 }
 
+# NB this can be read from the instance-metadata-service.
+#    see https://docs.microsoft.com/en-us/azure/virtual-machines/linux/instance-metadata-service#get-user-data
+# NB ANYTHING RUNNING IN THE VM CAN READ THIS DATA FROM THE INSTANCE-METADATA-SERVICE.
+# NB cloud-init executes **all** these parts regardless of their result. they
+#    should be idempotent.
+# NB the output is saved at /var/log/cloud-init-output.log
+data "template_cloudinit_config" "app" {
+  part {
+    content_type = "text/cloud-config"
+    content = <<-EOF
+    #cloud-config
+    runcmd:
+      - echo 'Hello from cloud-config runcmd!'
+    EOF
+  }
+  part {
+    content_type = "text/x-shellscript"
+    content = <<-EOF
+    #!/bin/bash
+    echo 'Hello from cloud-config script!'
+    EOF
+  }
+}
+
 resource "azurerm_linux_virtual_machine" "app" {
   name                  = "app"
   resource_group_name   = azurerm_resource_group.example.name
@@ -188,6 +212,8 @@ resource "azurerm_linux_virtual_machine" "app" {
   admin_username                  = var.admin_username
   admin_password                  = var.admin_password
   disable_password_authentication = false
+
+  user_data = data.template_cloudinit_config.app.rendered
 
   admin_ssh_key {
     username   = var.admin_username
